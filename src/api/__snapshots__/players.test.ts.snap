@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchPlayer 1`] = `"A07742"`;
+
+exports[`fetchPlayer 2`] = `"N"`;
+
+exports[`fetchPlayer 3`] = `"SepM"`;

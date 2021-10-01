@@ -1,0 +1,3 @@
+
+export const regionChoices = <const>["Compétitions FFE","Tournois Nationaux","Alsace","Aquitaine","Auvergne-Rhône-Alpes","Auvergne","Bourgogne-Franche Comté","Basse-Normandie","Bretagne","Bourgogne","Côte d'Azur","Champagne-Ardennes","Corse","Centre Val-de-Loire","Dauphiné-Savoie","Grand Est","Franche-Comte","Guadeloupe","Guyane","Hauts-de-France","Haute-Normandie","Ile-de-France","Languedoc","Limousin","Lorraine","Lyonnais","Martinique","Midi-Pyrénées","Nouvelle Aquitaine","Nouvelle-Calédonie","Normandie","Nord-Pas de Calais","Occitanie","Provence-Alpes-Côte d'Azur","Poitou-Charentes","Pays-de-Loire","Picardie","Polynésie","Provence","Réunion","Expatriés"]
+export type Region = typeof regionChoices[number]
