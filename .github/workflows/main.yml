@@ -1,4 +1,4 @@
-name: ogame-api-bot
+name: ffe-api
 
 on: [push, pull_request]
 
