@@ -1,0 +1,8 @@
+{
+  "name": "FFE-api",
+  "version": "1.0.0",
+  "description": "FFE api for the french chess federaion website",
+  "main": "index.js",
+  "author": "Noe Rivals",
+  "license": "MIT"
+}
