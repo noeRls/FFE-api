@@ -1,5 +1,4 @@
 import api from './api';
-import { ChessEvent } from './types/types';
 
 const main = async () => {
     const player = await api.fetchPlayer("Noe", "Rivals");
