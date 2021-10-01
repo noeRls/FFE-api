@@ -43,3 +43,6 @@ const main = async () => {
 }
 ```
 
+# Contribute
+
+If you have any issues or want new feature feel free to create an issue.
