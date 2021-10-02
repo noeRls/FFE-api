@@ -20,22 +20,27 @@ export interface ChessEventPlayer {
     club?: string;
 }
 
+export interface GameSpeed {
+    increment: number;
+    time: number;
+}
+
 export interface ChessEventDetailed extends ChessEvent {
     approvedBy: string;
     numberOfRounds: number;
-    speed: string;
+    speed: GameSpeed;
     pairing: string;
     host: {
-        name: string;
-        adresse: string;
-        contact: string;
+        name?: string;
+        adresse?: string;
+        contact?: string;
     }
     referee: string;
     fees: {
         senior: number;
         young: number;
     },
-    annoncement: string;
+    annoncement?: string;
     players?: ChessEventPlayer[];
 }
 

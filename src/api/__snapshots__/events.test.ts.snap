@@ -228,7 +228,10 @@ Object {
     },
   ],
   "referee": "LORENZO Alfredo",
-  "speed": "15 min  Ko",
+  "speed": Object {
+    "increment": 0,
+    "time": 15,
+  },
 }
 `;
 
@@ -299,7 +302,10 @@ Object {
     },
   ],
   "referee": "BOILEAU Mickael",
-  "speed": "60' + [30'']",
+  "speed": Object {
+    "increment": 30,
+    "time": 60,
+  },
 }
 `;
 

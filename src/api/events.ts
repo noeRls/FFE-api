@@ -3,7 +3,7 @@ import { JSDOM } from 'jsdom';
 import { Region } from '../types/generated';
 import { isRegion } from '../types/typeGurads';
 import { ChessEvent, ChessEventDetailed, ChessEventPlayer, ChessPlayer, LiscenceType } from '../types/types';
-import { parseElo, parseDate, loadPage, normalizeString } from './utils';
+import { parseElo, parseDate, loadPage, normalizeString, parseSpeed } from './utils';
 
 const parseEventRow = (row: Element): Omit<ChessEvent, 'region'> | undefined => {
     const details = row.querySelectorAll('td');
@@ -103,7 +103,6 @@ const parsePlayerListGrid = (document: Document): ChessEventPlayer[] =>
 const parseDetailEventPlayers = async (eventLink: string, elem: Element): Promise<ChessEventPlayer[] | undefined> => {
     const resultLink = elem.querySelector('a[id="ctl00_ContentPlaceHolderMain_RepeaterResultats_ctl04_LinkResultats"]');
     if (resultLink && resultLink.textContent.trim() === 'Classement') {
-        console.log('classement');
         const link = resultLink.getAttribute('href')
         return parseResultGrid(await loadPage(`/${link}`));
     }
@@ -118,7 +117,6 @@ const parseDetailEventPlayers = async (eventLink: string, elem: Element): Promis
 const parseEventDetailRow = (elem: Element, id: string): string | undefined => {
     const textElement = elem.querySelectorAll(`tr[id="${id}"] > td`).item(1);
     if (!textElement) {
-        console.log(id);
         return undefined;
     }
     return textElement.textContent.trim();
@@ -127,14 +125,13 @@ const parseEventDetailRow = (elem: Element, id: string): string | undefined => {
 export const fetchEventDetails = async (event: ChessEvent): Promise<ChessEventDetailed> => {
     const document = await loadPage(`/${event.detailLink}`);
     const table = document.querySelector('table[id="ctl00_ContentPlaceHolderMain_TableTournoi"]');
-    console.log(event.detailLink);
     return ({
         ...event,
         // parseEventDetailRow(table, 'ctl00_ContentPlaceHolderMain_RowEloRapide'),
         // parseEventDetailRow(table, 'ctl00_ContentPlaceHolderMain_RowEloFide'),
         approvedBy: parseEventDetailRow(table, 'ctl00_ContentPlaceHolderMain_RowHomologuePar'),
         numberOfRounds: Number(parseEventDetailRow(table, 'ctl00_ContentPlaceHolderMain_RowNbrRondes')),
-        speed: parseEventDetailRow(table, 'ctl00_ContentPlaceHolderMain_RowCadence'),
+        speed: parseSpeed(parseEventDetailRow(table, 'ctl00_ContentPlaceHolderMain_RowCadence')),
         pairing: parseEventDetailRow(table, 'ctl00_ContentPlaceHolderMain_RowAppariements'),
         host: {
             name: parseEventDetailRow(table, 'ctl00_ContentPlaceHolderMain_RowOrganisateur'),

@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import { JSDOM } from 'jsdom';
+import { GameSpeed } from '..';
 
 const axios = Axios.create({
     baseURL: 'http://www.echecs.asso.fr/'
@@ -20,3 +21,23 @@ export const parseDate = (date: string): Date => {
 
 export const parseElo = (elo: string): number =>
     Number(normalizeString(elo).split(' ')[0])
+
+export const parseSpeed = (speed: string): GameSpeed => {
+    if (speed.includes('-')) {
+        speed = speed.split('-')[1];
+    }
+    const [timeStr, incrementStr] = speed.split('+');
+    const increment = incrementStr ? Number(incrementStr.replace(/^\D+|\D+$/g, "")) : 0;
+    if (timeStr.includes('h')) {
+        const [hour, minutes] = timeStr.trim().split('h');
+        return {
+            increment,
+            time: Number(hour) * 60 + Number(minutes),
+        }
+    } else {
+        return {
+            increment,
+            time: Number(timeStr.replace(/^\D+|\D+$/g, "")),
+        }
+    }
+}
