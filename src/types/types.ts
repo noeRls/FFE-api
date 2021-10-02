@@ -5,8 +5,8 @@ export interface ChessEvent {
     name: string;
     departement: number;
     city: string;
-    startDate: Date;
-    endDate: Date;
+    startDate: number;
+    endDate: number;
     detailLink: string;
 }
 
