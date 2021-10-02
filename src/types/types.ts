@@ -16,7 +16,8 @@ export interface ChessEventPlayer {
     category: string;
     federation: string;
     league?: string;
-    eventRating: number;
+    eventRating?: number;
+    club?: string;
 }
 
 export interface ChessEventDetailed extends ChessEvent {

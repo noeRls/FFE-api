@@ -113,7 +113,7 @@ Array [
 ]
 `;
 
-exports[`fetchEventDetails 1`] = `
+exports[`fetchEventDetails Correctly fetch past event details 1`] = `
 Object {
   "annoncement": "6 rondes - 15min KOAdresse du tournoi:Ecole Elementaire19 rue de l'Arbre Sec75001 ParisMo. Louvre-RivoliInsc.:8€, 12€ ou 16€ jusqu'au 7 octobre (cachet de la poste faisant foi) et selon les revenus des parents.Sur place, le tarif est de 20€ pour tousRens.:BREAU, Clementasso.schlak@gmail.com06 66 90 98 64http://www.schlak.org",
   "approvedBy": "IDF",
@@ -229,6 +229,77 @@ Object {
   ],
   "referee": "LORENZO Alfredo",
   "speed": "15 min  Ko",
+}
+`;
+
+exports[`fetchEventDetails Fetch only participants if results are not available 1`] = `
+Object {
+  "annoncement": "Tournoi d'échecs de Chevigny St Sauveur (21) dans l'agglomération dijonnaise.* Un Open de 5 rondes associé à un toutes rondes pour les 6 plus forts Elo de la liste d'inscription.* Les deux tournois sont réservés aux Elo inférieurs à 2200.CE TOURNOI RÉUNIT LES 6 PLUS FORTS ELO DE L'OPEN.Buvette et restauration sur place.Salle d'analyse. Parking privé.PASS SANITAIRE OBLIGATOIRE, tournoi limité aux 40 premiers inscrits, ne tardez pas !Programme :Samedi 2 octobre. Pointages et dernières inscriptions 12h00-12h50.Ronde 1 à 13h00. Ronde 2 à 16h30.Dimanche 3 octobre. Ronde 3 à 9h30. Ronde 4 à 13h00 et Ronde 5 à 16h30 suivi de la remise des prix.Prix au général. Invitation gratuite à l'édition 2022 du vainqueur en plus de son prix de 250€.",
+  "approvedBy": "FFE",
+  "detailLink": "FicheTournoi.aspx?Ref=53336",
+  "fees": Object {
+    "senior": 20,
+    "young": 10,
+  },
+  "host": Object {
+    "adresse": "Centre Social et Culturel Pierre Perret 26 route de Bressey 21800 Chevigny St Sauveur",
+    "contact": "esbarresbonnencoontreechecs@gmail.com ou Tanguy Ghirotto 06.16.43.39.17.",
+    "name": "Esbarres Bonnencontre Echecs",
+  },
+  "numberOfRounds": 5,
+  "pairing": "Toutes Rondes",
+  "players": Array [
+    Object {
+      "category": "Macon Echecs",
+      "club": "Macon Echecs",
+      "elo": 1781,
+      "federation": "flags/FRA.GIF",
+      "league": "BFC",
+      "name": "BERNARD Olivier",
+    },
+    Object {
+      "category": "Esbarres Bonnencontre Echecs",
+      "club": "Esbarres Bonnencontre Echecs",
+      "elo": 1941,
+      "federation": "flags/CAN.GIF",
+      "league": "BFC",
+      "name": "CHIFFOT Nicolas",
+    },
+    Object {
+      "category": "Esbarres Bonnencontre Echecs",
+      "club": "Esbarres Bonnencontre Echecs",
+      "elo": 1822,
+      "federation": "flags/FRA.GIF",
+      "league": "BFC",
+      "name": "GHIROTTO Tanguy",
+    },
+    Object {
+      "category": "Mulhouse Philidor",
+      "club": "Mulhouse Philidor",
+      "elo": 1938,
+      "federation": "flags/FRA.GIF",
+      "league": "EST",
+      "name": "MATHEZ Florian",
+    },
+    Object {
+      "category": "Charolais Brionnais Echec et Mat",
+      "club": "Charolais Brionnais Echec et Mat",
+      "elo": 2148,
+      "federation": "flags/FRA.GIF",
+      "league": "BFC",
+      "name": "RACLE Valentin",
+    },
+    Object {
+      "category": "Club Universitaire Bourgogne Echecs - CUBE",
+      "club": "Club Universitaire Bourgogne Echecs - CUBE",
+      "elo": 1773,
+      "federation": "flags/FRA.GIF",
+      "league": "BFC",
+      "name": "RAHI William",
+    },
+  ],
+  "referee": "BOILEAU Mickael",
+  "speed": "60' + [30'']",
 }
 `;
 

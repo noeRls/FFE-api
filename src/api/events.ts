@@ -38,7 +38,7 @@ export const fetchDayEvents = async (day: number, month: number, year: number): 
         } else {
             const event = parseEventRow(row);
             if (event && currentRegion) {
-                result.push({...event, region: currentRegion})
+                result.push({ ...event, region: currentRegion })
             }
         }
     });
@@ -62,37 +62,72 @@ export const fetchMonthEvents = async (month: number, year: number): Promise<Che
     return result;
 }
 
-const parseEventDetailRow = (elem: Element, id: string): string => {
-    return elem.querySelectorAll(`tr[id="${id}"] > td`).item(1).textContent.trim();
-}
+const basePlayerRowParsing = (row: Element) => ({
+    federation: row.querySelector('img').getAttribute('src'),
+})
 
-const parseDetailEventPlayers = async (eventLink: string, elem: Element): Promise<ChessEventPlayer[] | undefined> => {
-    const linkElement = elem.querySelector('a[id="ctl00_ContentPlaceHolderMain_RepeaterResultats_ctl02_LinkResultats"]');
-    if (!linkElement) {
-        return undefined;
-    }
-    const link = linkElement.getAttribute('href')
-    const document = await loadPage(`/${link}`);
+const parsePlayerGrid = (
+    document: Document,
+    buildPlayer: (row: Element, rowItems: NodeListOf<ChildNode>
+    ) => ChessEventPlayer): ChessEventPlayer[] => {
     const rows = document.querySelectorAll('table[style="border-collapse:collapse;"] > tbody > tr');
     const result: ChessEventPlayer[] = [];
     for (let i = 2; i < rows.length; i++) {
         const row = rows.item(i);
-        const rowItems = row.childNodes;
-        result.push({
-            name: row.querySelector('div[class="papi_joueur_box"] b').textContent.trim(),
-            federation: row.querySelector('img').getAttribute('src'),
-            eventRating: Number(rowItems.item(1).textContent.trim()),
-            elo: parseElo(rowItems.item(7).textContent),
-            category: rowItems.item(9).textContent.trim(),
-            league: rowItems.item(13).textContent.trim(),
-        });
+        const rowItems = row.querySelectorAll('td');
+        result.push(buildPlayer(row, rowItems));
     }
     return result;
+}
+
+const parseResultGrid = (document: Document): ChessEventPlayer[] =>
+    parsePlayerGrid(document, (row, rowItems) => ({
+        ...basePlayerRowParsing(row),
+        name: rowItems.item(2).textContent.trim(),
+        eventRating: Number(rowItems.item(0).textContent.trim()),
+        elo: parseElo(rowItems.item(3).textContent),
+        category: rowItems.item(4).textContent.trim(),
+        league: rowItems.item(6).textContent.trim(),
+    }));
+
+const parsePlayerListGrid = (document: Document): ChessEventPlayer[] =>
+    parsePlayerGrid(document, (row, rowItems) => ({
+        ...basePlayerRowParsing(row),
+        name: rowItems.item(2).textContent.trim(),
+        elo: parseElo(rowItems.item(3).textContent),
+        category: rowItems.item(7).textContent.trim(),
+        league: rowItems.item(6).textContent.trim(),
+        club: rowItems.item(7).textContent.trim(),
+    }));
+
+const parseDetailEventPlayers = async (eventLink: string, elem: Element): Promise<ChessEventPlayer[] | undefined> => {
+    const resultLink = elem.querySelector('a[id="ctl00_ContentPlaceHolderMain_RepeaterResultats_ctl04_LinkResultats"]');
+    if (resultLink && resultLink.textContent.trim() === 'Classement') {
+        console.log('classement');
+        const link = resultLink.getAttribute('href')
+        return parseResultGrid(await loadPage(`/${link}`));
+    }
+    const playerLink = elem.querySelector('a[id="ctl00_ContentPlaceHolderMain_RepeaterResultats_ctl00_LinkResultats"]');
+    if (playerLink) {
+        const link = playerLink.getAttribute('href')
+        return parsePlayerListGrid(await loadPage(`/${link}`));
+    }
+    return undefined;
+}
+
+const parseEventDetailRow = (elem: Element, id: string): string | undefined => {
+    const textElement = elem.querySelectorAll(`tr[id="${id}"] > td`).item(1);
+    if (!textElement) {
+        console.log(id);
+        return undefined;
+    }
+    return textElement.textContent.trim();
 }
 
 export const fetchEventDetails = async (event: ChessEvent): Promise<ChessEventDetailed> => {
     const document = await loadPage(`/${event.detailLink}`);
     const table = document.querySelector('table[id="ctl00_ContentPlaceHolderMain_TableTournoi"]');
+    console.log(event.detailLink);
     return ({
         ...event,
         // parseEventDetailRow(table, 'ctl00_ContentPlaceHolderMain_RowEloRapide'),

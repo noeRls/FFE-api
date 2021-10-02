@@ -5,7 +5,7 @@ const axios = Axios.create({
     baseURL: 'http://www.echecs.asso.fr/'
 });
 
-export const normalizeString = (s: string) => s.replace(/\s+/g, ' ').trim()
+export const normalizeString = (s: string | undefined) => s ? s.replace(/\s+/g, ' ').trim() : undefined;
 
 export const loadPage = async (url: string): Promise<Document> => {
     const {data} = await axios.get(url);
