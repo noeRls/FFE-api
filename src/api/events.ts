@@ -1,5 +1,3 @@
-import Axios from 'axios';
-import { JSDOM } from 'jsdom';
 import { Region } from '../types/generated';
 import { isRegion } from '../types/typeGurads';
 import { ChessEvent, ChessEventDetailed, ChessEventPlayer, ChessPlayer, LiscenceType } from '../types/types';
