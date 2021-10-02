@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { JSDOM } from 'jsdom';
+import * as htmlparser2 from 'htmlparser2';
 import { GameSpeed } from '..';
 
 const axios = Axios.create({
@@ -8,10 +8,12 @@ const axios = Axios.create({
 
 export const normalizeString = (s: string | undefined) => s ? s.replace(/\s+/g, ' ').trim() : undefined;
 
-export const loadPage = async (url: string): Promise<Document> => {
+export type DocumentType = ReturnType<typeof htmlparser2.parseDocument>
+
+export const loadPage = async (url: string): Promise<DocumentType> => {
     const {data} = await axios.get(url);
-    const { window: { document } } = new JSDOM(data);
-    return document;
+    const dom = htmlparser2.parseDocument(data);
+    return dom;
 }
 
 export const parseDate = (date: string): Date => {
@@ -40,4 +42,14 @@ export const parseSpeed = (speed: string): GameSpeed => {
             time: Number(timeStr.replace(/^\D+|\D+$/g, "")),
         }
     }
+}
+
+export const text = (doc: DocumentType): string => {
+    return htmlparser2.DomUtils.textContent(doc).trim();
+}
+
+export const getAttributeValue = (doc: DocumentType, attibute: string): string | undefined => {
+    const attributes = (doc as any).attribs as (Record<string, string> | undefined);
+    return attributes?.[attibute];
+    // return htmlparser2.DomUtils.getAttributeValue(doc., attibute);
 }
