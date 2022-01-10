@@ -21,7 +21,7 @@ const parseEventRow = (row: DocumentType): Omit<ChessEvent, 'region'> | undefine
 }
 
 export const fetchDayEvents = async (day: number, month: number, year: number): Promise<ChessEvent[]> => {
-    const document = await loadPage(`/Calendrier.aspx?jour=${day}%2f${month}%2f${year}`);
+    const document = await loadPage(`/Calendrier.aspx?jour=${day}%2f${month + 1}%2f${year}`);
     const rows = selectAll('tr[id=ctl00_ContentPlaceHolderMain_RowParJour] tr', document);
     const result: ChessEvent[] = [];
     let currentRegion: Region | undefined;

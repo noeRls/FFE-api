@@ -2,7 +2,7 @@ import { ChessEvent } from '../types/types';
 import { fetchDayEvents, fetchEventDetails, fetchMonthEvents } from './events';
 
 it('fetchDayEvents', async () => {
-    let events = await fetchDayEvents(3, 10, 2020);
+    let events = await fetchDayEvents(3, 9, 2020);
     events = events.sort((e, b) => e.detailLink.localeCompare(b.detailLink))
     expect(events).toMatchSnapshot();
 });
@@ -21,7 +21,7 @@ describe('fetchEventDetails', () => {
 
 
 it('fetchMonthEvents', async () => {
-    let events = await fetchMonthEvents(10, 2020);
+    let events = await fetchMonthEvents(9, 2020);
     events = events.sort((e, b) => e.detailLink.localeCompare(b.detailLink))
     expect(events).toMatchSnapshot();
 });

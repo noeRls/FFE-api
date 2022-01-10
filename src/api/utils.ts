@@ -18,7 +18,7 @@ export const loadPage = async (url: string): Promise<DocumentType> => {
 
 export const parseDate = (date: string): number => {
     const [day, month, year] = date.trim().split('/').map(n => Number(n));
-    return Date.UTC(2000 + year, month, day, 12, 0, 0, 0);
+    return Date.UTC(2000 + year, month - 1, day, 12, 0, 0, 0);
 }
 
 export const parseElo = (elo: string): number =>
