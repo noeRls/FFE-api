@@ -2436,6 +2436,15 @@ Array [
     "startDate": 1606046400000,
   },
   Object {
+    "city": "AVALLON",
+    "departement": 89,
+    "detailLink": "FicheTournoi.aspx?Ref=52430",
+    "endDate": 1606305600000,
+    "name": "1er Rapide Jeunes d'Avallon",
+    "region": "Bourgogne-Franche Comté",
+    "startDate": 1606305600000,
+  },
+  Object {
     "city": "JUILLAN",
     "departement": 65,
     "detailLink": "FicheTournoi.aspx?Ref=52433",
